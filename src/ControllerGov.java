@@ -6,7 +6,6 @@ public class ControllerGov implements IController {
 
   @Override
   public void run(Scanner scan, Connection conn, String username) {
-//we assign the ids for the clinic
    GovOfficial gov = new GovOfficial(username, conn);
     while (true) {
       System.out.println("Option menu:");

@@ -6,7 +6,7 @@ public class ControllerDistributor implements IController {
 
   @Override
   public void run(Scanner scan, Connection conn, String username) {
-    //we assign the ids for the clinic
+
     Distributor dist = new Distributor(username, conn);
     while (true) {
       System.out.println("Option menu:");
