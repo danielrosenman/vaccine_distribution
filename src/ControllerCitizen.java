@@ -134,33 +134,5 @@ public class ControllerCitizen implements IController {
       System.out.println("ERROR: Could not add citizen info to database.");
     }
 
-/*
-    while (true) {
-      System.out.println("press 1 for viewing all available appointment at a clinic");
-      System.out.println("press 2 for viewing my appointment");
-      System.out.println("press 3 to log out");
-
-      int choice = scan.nextInt();
-
-      if (choice == 1) {
-        citizen.viewAppointmentsAtClinic();
-      }
-
-      if (choice == 2) {
-        citizen.viewMyAppointments();
-      }
-      if (choice == 3) {
-        int session = citizen.getCurrentSession(username);
-        citizen.logOut(session);
-        System.out.println("Successfully logged Out!");
-        break;
-      } else {
-        System.out.println("Invalid choice!");
-      }
-
-
-    }
-*/
-
   }
 }
