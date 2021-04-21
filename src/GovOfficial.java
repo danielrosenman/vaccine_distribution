@@ -1,9 +1,14 @@
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GovOfficial extends AUser{
 
+
+  GovOfficial(String userName, Connection connect){
+    super(userName, connect);
+  }
 public void viewVaccineSupply(){
 
 }

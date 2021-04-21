@@ -7,5 +7,11 @@ public class ControllerClinic implements IController {
   @Override
   public void run(Scanner scan, Connection conn, String username) {
 
-  }
+
+      }
+
+
+
+
+
 }

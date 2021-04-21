@@ -1,4 +1,5 @@
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -8,10 +9,11 @@ public class ClinicStaff extends AUser {
 
   int clinicID;
 
-  ClinicStaff(int id){
+  ClinicStaff(int id, String userName, Connection connect){
+   super(userName, connect);
     this.clinicID = id;
-  }
 
+  }
 
   public void getClinicInformation() throws SQLException {
     CallableStatement addStmt = connect.prepareCall("{CALL view_clinic_information(?)}");

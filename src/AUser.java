@@ -7,12 +7,14 @@ import java.sql.Types;
 
 public abstract class  AUser implements IUser {
   protected Connection connect;
+  protected String userName;
    private boolean loggedIn;
 
-  AUser(){
+  AUser(String userName, Connection connect){
     loggedIn = false;
-    this.connect();
-  }
+    this.userName = userName;
+    this.connect = connect;
+      }
 
   //creates an account
   @Override
@@ -89,13 +91,14 @@ public abstract class  AUser implements IUser {
     endStmt.execute();
     loggedIn = false;
     connect.close();
-    System.exit(0);
+    System.out.println("Successfuly logged out!");
+
   }
 
   @Override
   public int getCurrentSession(String username) throws SQLException {
     if(loggedIn) {
-      CallableStatement existStmt = connect.prepareCall("{? = CALL userExists(?)}");
+      CallableStatement existStmt = connect.prepareCall("{? = CALL latest_session(?)}");
       existStmt.registerOutParameter(1, Types.INTEGER);
       existStmt.setString(2, username);
       existStmt.execute();

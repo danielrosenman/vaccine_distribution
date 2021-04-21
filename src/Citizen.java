@@ -1,4 +1,5 @@
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -10,8 +11,9 @@ public final class Citizen extends AUser {
   private String ssn;
   private int clinic;
 
-  Citizen(String ssn) throws SQLException {
-    super();
+
+  Citizen(String ssn, String userName, Connection connect) throws SQLException {
+    super(userName, connect);
     availableAppointments = new ArrayList<>();
     this.ssn = ssn;
     clinic = getClinic();
