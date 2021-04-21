@@ -31,15 +31,19 @@ public class ClinicStaff extends AUser {
 
   public void addAppointmentAvailability(Timestamp stamp, int staffID) throws SQLException {
     CallableStatement addStmt = connect.prepareCall("{CALL add_appt_availability(?, ?, ?)}");
-    addStmt.registerOutParameter(1, Types.VARCHAR, this.clinicID);
+    addStmt.setInt(1,  this.clinicID);
     addStmt.setTimestamp(2, stamp);
     addStmt.setInt(3, staffID);
     addStmt.execute();
     System.out.println("Appointment added successfuly");
   }
 
-  public void updatePatientInformation(String ssn){
-
+  public void updatePatientInformation(String ssn, String history) throws SQLException {
+    CallableStatement addStmt = connect.prepareCall("{CALL update_patient_info(?, ?)}");
+    addStmt.setString(1, ssn);
+    addStmt.setString(2, history);
+    addStmt.execute();
+    System.out.println("Patient information successfully updated");
   }
 
 }
