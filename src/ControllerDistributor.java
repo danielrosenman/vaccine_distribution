@@ -33,10 +33,11 @@ public class ControllerDistributor implements IController {
         case 2:
           try {
             dist.logOut(dist.getCurrentSession(username));
-            break;
+            System.out.println("Successfuly logged out!");
+            System.exit(0);
 
           } catch (Exception e) {
-            System.out.println("Entered invalid manufacturer name or amount");
+            System.out.println("Failed to log out!");
             continue;
           }
         default:

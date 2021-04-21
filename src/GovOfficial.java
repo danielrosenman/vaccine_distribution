@@ -23,8 +23,6 @@ public void viewVaccineSupply() throws SQLException {
         + "Number of Injections: " + result.getInt(4));
   }
 
-
-
 }
 
 
