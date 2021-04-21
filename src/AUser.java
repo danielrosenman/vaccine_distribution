@@ -7,12 +7,14 @@ import java.sql.Types;
 
 public abstract class  AUser implements IUser {
   protected Connection connect;
-  private boolean loggedIn;
+  protected String userName;
+   private boolean loggedIn;
 
-  AUser(Connection conn) {
-    this.connect = conn;
+  AUser(String userName, Connection connect){
     loggedIn = false;
-  }
+    this.userName = userName;
+    this.connect = connect;
+      }
 
   //creates an account
   @Override
@@ -55,6 +57,30 @@ public abstract class  AUser implements IUser {
     return output;
   }
 
+
+  //Connects the program tothe vaccine distribution database
+
+  @Override
+  public void connect() {
+    try{
+
+      connect = DriverManager.getConnection (
+          "jdbc:mysql://"
+              + "127.0.0.1:3306" + "/" + "vaccine_distribution" + "?allowPublicKeyRetrieval=true&character"
+              + "Encoding=UTF-8&useSSL=false","root","R0senman24667#");
+    }catch(Exception e){ System.out.println(e);}
+  }
+
+  @Override
+  public boolean userExists(String username) throws SQLException {
+    CallableStatement existStmt = connect.prepareCall("{? = CALL userExists(?)}");
+    existStmt.registerOutParameter(1, Types.BOOLEAN);
+    existStmt.setString(2, username);
+    existStmt.execute();
+    Boolean output = existStmt.getBoolean(1);
+    return output;
+  }
+
   @Override
   public void logOut(int session) throws SQLException {
     String query = "{CALL update_user_session(?, ?)}";
@@ -65,13 +91,14 @@ public abstract class  AUser implements IUser {
     endStmt.execute();
     loggedIn = false;
     connect.close();
-    System.exit(0);
+    System.out.println("Successfuly logged out!");
+
   }
 
   @Override
   public int getCurrentSession(String username) throws SQLException {
     if(loggedIn) {
-      CallableStatement existStmt = connect.prepareCall("{? = CALL userExists(?)}");
+      CallableStatement existStmt = connect.prepareCall("{? = CALL latest_session(?)}");
       existStmt.registerOutParameter(1, Types.INTEGER);
       existStmt.setString(2, username);
       existStmt.execute();
